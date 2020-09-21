@@ -57,11 +57,11 @@ public class WellformedXMLServer implements CommandExecutor {
             int charactersChecked = 0;
             currentIndex = 0;
 
-            currentTag = nextCharWithBracket();
+            currentTag = getNextToken();
 
             while (!currentTag.equals("\0")) {
                 previousTag = (String) listStack.peek(); //null
-                if (charactersChecked != 0) currentTag = nextCharWithBracket();
+                if (charactersChecked != 0) currentTag = getNextToken();
                 if (!currentTag.equals("\0")) listStack.push(currentTag);
 
                 if (previousTag != null && previousTag.equals(currentTag.replace("/", ""))) {
@@ -77,13 +77,13 @@ public class WellformedXMLServer implements CommandExecutor {
     }
 
     /**
-     * Gives an character which is a bracket.
-     * For this it iterate over an char array with the argument. And it checks it the character is in one of the ArrayLists.
-     * If it is so, it will return the character. And if not it will return '\0'.
+     * Gives the next Token
+     * For this it iterate over an char array with the argument. And it checks gets the index of open and close bracket.
+     * After that it will extract the token from the string.
      *
-     * @return the next bracket character.
+     * @return the next Token.
      */
-    private String nextCharWithBracket() {
+    private String getNextToken() {
         String nextChar = "\0";
         int bothBracketsFound = 0;
         boolean openBracket = false;
