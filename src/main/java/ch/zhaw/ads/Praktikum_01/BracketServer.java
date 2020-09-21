@@ -71,8 +71,6 @@ public class BracketServer implements CommandExecutor {
             }
             charactersChecked++;
         }
-
-        System.out.println(listStack.isEmpty());
         return listStack.isEmpty();
     }
 
