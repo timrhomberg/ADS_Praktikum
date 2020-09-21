@@ -13,9 +13,9 @@ public class WellformedXMLServer implements CommandExecutor {
     @Override
     public String execute(String command) throws Exception {
         if (checkWellformed(command)) {
-            return "XML File correct formated :)!\n";
+            return "XML File correct formatted :)!\n";
         } else {
-            return "Error: XML File NOT CORRECT formated!\n";
+            return "Error: XML File NOT CORRECT formatted!\n";
         }
     }
 

@@ -52,6 +52,7 @@ public class BracketServer implements CommandExecutor {
 
         char currentBracket;
         Character previousBracket;
+        // Wie viele Character wurden schon überprüft
         int charactersChecked = 0;
 
         currentBracket = nextChar();
