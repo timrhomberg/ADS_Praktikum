@@ -64,6 +64,9 @@ public class WellformedXMLServer implements CommandExecutor {
                 if (charactersChecked != 0) currentTag = getNextToken();
                 if (!currentTag.equals("\0")) listStack.push(currentTag);
 
+                if (currentTag.endsWith("/")) {
+                    listStack.pop();
+                }
                 if (previousTag != null && previousTag.equals(currentTag.replace("/", ""))) {
                     listStack.pop();
                     listStack.pop();
