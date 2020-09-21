@@ -37,8 +37,8 @@ public class WellformedXMLServer implements CommandExecutor {
 
     /**
      * In the first Step it checks if the XML Header is available.
-     * @param arg
-     * @return
+     * @param arg the argument.
+     * @return True if the xml is wellformed.
      */
     public boolean checkWellformed(String arg) throws Exception {
         ListStack listStack = new ListStack(arg.length());

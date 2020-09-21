@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @(#)WellformedXMLServerTest.java
@@ -29,8 +29,8 @@ public class WellformedXMLServerTest {
         String invalidXMLFilePath = "/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/Praktikum/src/test/resources/NotValidXMLFile";
         String invalidFile = openFile(invalidXMLFilePath);
 
-        assertEquals(server.checkWellformed(validFile),true);
-        assertEquals(server.checkWellformed(invalidFile),false);
+        assertTrue(server.checkWellformed(validFile));
+        assertFalse(server.checkWellformed(invalidFile));
     }
 
     private String openFile(String name)  throws Exception {
