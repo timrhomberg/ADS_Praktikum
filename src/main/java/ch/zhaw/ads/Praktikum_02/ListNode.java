@@ -1,5 +1,7 @@
 package ch.zhaw.ads.Praktikum_02;
 
+import java.util.Objects;
+
 public class ListNode {
     Object data;
     ListNode next, prev;
@@ -7,6 +9,7 @@ public class ListNode {
     ListNode (Object o) {
         data = o;
         next = null;
+        prev = null;
     }
 
     public void setNextNode(ListNode next) {
@@ -27,5 +30,18 @@ public class ListNode {
 
     public Object getData() {
         return data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListNode listNode = (ListNode) o;
+        return data.equals(listNode.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 }

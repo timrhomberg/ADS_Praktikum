@@ -16,13 +16,13 @@ public class ListTest {
 
     @Test
     public void testAdd() {
-        //list.clear();
+        list.clear();
         list.add("A");
         Object o = list.get(0);
         assertEquals(o, "A");
     }
 
-    /*@Test
+    @Test
     public void testAdd2() {
         list.clear();
         list.add("A");
@@ -71,12 +71,20 @@ public class ListTest {
     }
 
     @Test
+    public void testListNodeEquals() {
+        ListNode characternode = new ListNode('a');
+        Object c = 'a';
+        System.out.println(characternode.getData().equals(c));
+    }
+    @Test
     public void testMixed() {
         list.clear();
         List list2 = new LinkedList();
         for (int i = 0; i < 100; i++) {
             Character c = (char) ('A' + (Math.random()*26));
             int op = (int)(Math.random()*2);
+            System.out.println("operation: " + op + " Character: " + c + " Liste: ");
+            list.stream().forEach(char1 -> System.out.println(char1));
             switch (op) {
                 case 0 : list.add(c); list2.add(c); break;
                 case 1 : list.remove(c); list2.remove(c); break;
@@ -88,6 +96,6 @@ public class ListTest {
             char c2 = (char)list2.get(i);
             assertEquals(c1,c2);
         }
-    }*/
+    }
 
 }

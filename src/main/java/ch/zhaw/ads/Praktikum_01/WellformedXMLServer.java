@@ -115,7 +115,7 @@ public class WellformedXMLServer implements CommandExecutor {
             for (int index = openBracketIndex + 1; index < closeBracketIndex; index++) {
                 stringBuilder.append(argumentChars[index]);
             }
-            System.out.println(stringBuilder.toString());
+            //System.out.println(stringBuilder.toString());
             return stringBuilder.toString();
         } else {
             return nextChar;
