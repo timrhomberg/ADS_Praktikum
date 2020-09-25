@@ -1,6 +1,6 @@
 package ch.zhaw.ads.Praktikum_02;
 
-import ch.zhaw.ads.Praktikum_01.BracketServer;
+import ch.zhaw.ads.Praktikum_02.BracketServer;
 import org.junit.Before;
 import org.junit.Test;
 

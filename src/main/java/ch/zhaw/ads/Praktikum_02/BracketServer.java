@@ -27,6 +27,8 @@ public class BracketServer implements CommandExecutor {
         closeBrackets.add('}');
         openBrackets.add('<');
         closeBrackets.add('>');
+        openBrackets.add('*');
+        closeBrackets.add('*');
     }
 
     @Override
@@ -85,6 +87,7 @@ public class BracketServer implements CommandExecutor {
     private char nextChar() {
         char nextChar = '\0';
         boolean result = false;
+        boolean starChar = false;
         while (!result && argumentChars.length > currentIndex) {
             char characterInExpression = argumentChars[currentIndex];
             boolean resultOpen = openBrackets.stream()
@@ -92,7 +95,16 @@ public class BracketServer implements CommandExecutor {
             boolean resultClose = closeBrackets.stream()
                     .anyMatch(character -> character.equals(characterInExpression));
             result = resultClose || resultOpen;
-            if (result) nextChar = argumentChars[currentIndex];
+            if (characterInExpression == '<' && argumentChars[currentIndex + 1] == '*') {
+                currentIndex++;
+                nextChar = argumentChars[currentIndex];
+            } else if (characterInExpression == '*' && argumentChars[currentIndex + 1] == '>') {
+                nextChar = argumentChars[currentIndex];
+                currentIndex++;
+            } else if (result) {
+                if (argumentChars[currentIndex] != '*') nextChar = argumentChars[currentIndex];
+                else result = false;
+            }
             currentIndex++;
         }
         return nextChar;

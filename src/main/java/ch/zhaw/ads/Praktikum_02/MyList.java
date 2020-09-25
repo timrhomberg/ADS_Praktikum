@@ -2,8 +2,9 @@ package ch.zhaw.ads.Praktikum_02;
 
 import java.util.*;
 
-public class MyList extends AbstractList {
+public class MyList extends AbstractList<Object> {
     private ListNode head;
+
     @Override
     public int size() {
         return 0;
@@ -16,23 +17,45 @@ public class MyList extends AbstractList {
 
     @Override
     public boolean add(Object o) {
-        if (head == null) {
-            add(0, o);
+        if (o != null) {
+            if (head == null) {
+                head = new ListNode(o);
+                head.setNextNode(head);
+                head.setPrevNode(head);
+            } else {
+                ListNode newNode = new ListNode(o);
+                ListNode lastNode = getLastNode();
+                lastNode.setNextNode(newNode);
+                newNode.setPrevNode(lastNode);
+            }
+            return true;
         } else {
-            ListNode n = new ListNode(o);
-            ListNode f = head;
-            while(f.next != null) f=f.next;
-            f.next = n;
+            return false;
         }
-        return true;
+    }
+
+    public ListNode getLastNode() {
+        ListNode listNode = head;
+        while(listNode.getNextNode() != null){
+            listNode = listNode.getNextNode();
+        }
+        return listNode;
     }
 
     @Override
     public boolean remove(Object o) {
-        int pos = 0;
-        if (pos == 0) head = head.next;
-        else {
-
+        ListNode listNode = head;
+        while(listNode.getNextNode() != null && !listNode.getData().equals(o)){
+            if(listNode.getNextNode().getData().equals(o)){
+                if(listNode.getNextNode().getNextNode()!=null){
+                    listNode.setNextNode(listNode.getNextNode().getNextNode());
+                    listNode.getNextNode().setPrevNode(listNode);
+                }else{
+                    listNode.getNextNode();
+                    break;
+                }
+            }
+            listNode = listNode.getNextNode();
         }
         return true;
     }

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ListTest {
 
-    List list;
+    List<Object> list;
 
     @Before
     public void setUp() throws Exception {
@@ -16,13 +16,13 @@ public class ListTest {
 
     @Test
     public void testAdd() {
-        list.clear();
+        //list.clear();
         list.add("A");
         Object o = list.get(0);
         assertEquals(o, "A");
     }
 
-    @Test
+    /*@Test
     public void testAdd2() {
         list.clear();
         list.add("A");
@@ -88,6 +88,6 @@ public class ListTest {
             char c2 = (char)list2.get(i);
             assertEquals(c1,c2);
         }
-    }
+    }*/
 
 }
