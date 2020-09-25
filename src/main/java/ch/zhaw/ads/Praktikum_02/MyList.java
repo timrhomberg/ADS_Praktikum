@@ -1,11 +1,8 @@
 package ch.zhaw.ads.Praktikum_02;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
-public class MyList implements List {
+public class MyList extends AbstractList {
     private ListNode head;
     @Override
     public int size() {
@@ -32,10 +29,12 @@ public class MyList implements List {
 
     @Override
     public boolean remove(Object o) {
+        int pos = 0;
         if (pos == 0) head = head.next;
         else {
 
         }
+        return true;
     }
 
     @Override

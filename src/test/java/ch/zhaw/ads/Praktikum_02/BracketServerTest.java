@@ -20,8 +20,16 @@ public class BracketServerTest {
 	
 	@Test
 	public void testBracket() {
+		// Aufgabe 1 (i)
 		test(")",false);
 		test("(",false);
+		// Aufgabe 1 (ii)
+		test("<(<>)>",true);
+		test("<(<)>>",false);
+		// Aufgabe 1 (iii)
+		test("<*(<*<>*>)*>",true);
+		test("<(<**>)*>",false);
+
 		test("()",true);
 		test("(()]",false);
 		test("((([([])])))",true);

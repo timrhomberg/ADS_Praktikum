@@ -24,9 +24,9 @@ public class WellformedXMLServerTest {
 
     @Test
     public void testXMLFile() throws Exception {
-        String validXMLFilePath = "/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/Praktikum/src/test/resources/validXMLFile";
+        String validXMLFilePath = "/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/ADS_Praktikum/src/test/resources/validXMLFile";
         String validFile = openFile(validXMLFilePath);
-        String invalidXMLFilePath = "/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/Praktikum/src/test/resources/NotValidXMLFile";
+        String invalidXMLFilePath = "/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/ADS_Praktikum/src/test/resources/NotValidXMLFile";
         String invalidFile = openFile(invalidXMLFilePath);
 
         assertTrue(server.checkWellformed(validFile));
