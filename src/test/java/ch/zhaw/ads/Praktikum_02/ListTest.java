@@ -76,6 +76,7 @@ public class ListTest {
         Object c = 'a';
         System.out.println(characternode.getData().equals(c));
     }
+
     @Test
     public void testMixed() {
         list.clear();
@@ -83,11 +84,25 @@ public class ListTest {
         for (int i = 0; i < 100; i++) {
             Character c = (char) ('A' + (Math.random()*26));
             int op = (int)(Math.random()*2);
-            System.out.println("operation: " + op + " Character: " + c + " Liste: ");
-            list.stream().forEach(char1 -> System.out.println(char1));
+            //System.out.println("operation: " + op + " Character: " + c + " Liste: ");
+            //list.forEach(System.out::println);
+            if (i == 50) System.out.println("000000000000000000000 List size: " + list.size() + " List2 size: " + list2.size());
             switch (op) {
-                case 0 : list.add(c); list2.add(c); break;
-                case 1 : list.remove(c); list2.remove(c); break;
+                case 0 : {
+                    list.add(c);
+                    list2.add(c);
+                    System.out.println("\033[31;1m Füge: " + c + "\033[0m");
+                    break;
+                }
+                case 1 : {
+                    list.remove(c);
+                    list2.remove(c);
+                    System.out.println(c);
+                    if (list2.size() != list.size()) {
+                        System.out.println("ID: " + i + " Character: " + c + " list size: " + list.size() + " List2 size: " + list2.size());
+                    }
+                    break;
+                }
             }
         }
         assertEquals(list2.size(), list.size());
