@@ -30,7 +30,7 @@ public class MyList extends AbstractList<Object> {
                 lastNode.setNextNode(newNode);
                 newNode.setPrevNode(lastNode);
                 newNode.setNextNode(head);
-                head.setPrevNode(lastNode);
+                head.setPrevNode(newNode);
             }
             size++;
             return true;
@@ -51,28 +51,34 @@ public class MyList extends AbstractList<Object> {
     public boolean remove(Object o) {
         ListNode listNode = head;
         if (o == null || head == null) return false;
-        if (listNode.getNextNode() == head && listNode.getData().equals(o)) {
-            clear();
-            System.out.println("hhee");
-            return true;
-        }
         boolean stop = false;
-        while (listNode.getNextNode() != head && !stop) {
-            listNode = listNode.getNextNode();
-            if(listNode.getData().equals(o)) {
-                ListNode nextNode = listNode.getNextNode();
-                ListNode prevNode = listNode.getPrevNode();
-                //System.out.println("next node: " + nextNode);
-                //System.out.println("prevNode: " + prevNode);
-                prevNode.setNextNode(nextNode);
-                nextNode.setPrevNode(prevNode);
-                //System.out.println("size entfernen aktuel " + this.size);
-                size--;
-                //System.out.println("size entfernt danach " + this.size);
-                System.out.println(head);
+        do {
+            if(listNode.equals(o)) {
+                if (size == 1) {
+                    clear();
+                    System.out.println("Nur ein element");
+                } else if (head.equals(o)) {
+                    System.out.println("head equals o: " + o + " " + head.getData());
+                    ListNode nextNode = listNode.getNextNode();
+                    ListNode prevNode = listNode.getPrevNode();
+                    head = nextNode;
+                    head.setPrevNode(prevNode);
+                    prevNode.setNextNode(head);
+                    size--;
+                } else {
+                    System.out.println("equals o: " + o + " " + listNode.getData());
+
+                    ListNode nextNode = listNode.getNextNode();
+                    ListNode prevNode = listNode.getPrevNode();
+                    prevNode.setNextNode(nextNode);
+                    nextNode.setPrevNode(prevNode);
+                    size--;
+                }
                 stop = true;
             }
-        }
+            listNode = listNode.getNextNode();
+        } while(listNode != head && !stop);
+
         return true;
     }
 
