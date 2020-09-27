@@ -56,9 +56,7 @@ public class MyList extends AbstractList<Object> {
             if(listNode.equals(o)) {
                 if (size == 1) {
                     clear();
-                    System.out.println("Nur ein element");
                 } else if (head.equals(o)) {
-                    System.out.println("head equals o: " + o + " " + head.getData());
                     ListNode nextNode = listNode.getNextNode();
                     ListNode prevNode = listNode.getPrevNode();
                     head = nextNode;
@@ -66,8 +64,6 @@ public class MyList extends AbstractList<Object> {
                     prevNode.setNextNode(head);
                     size--;
                 } else {
-                    System.out.println("equals o: " + o + " " + listNode.getData());
-
                     ListNode nextNode = listNode.getNextNode();
                     ListNode prevNode = listNode.getPrevNode();
                     prevNode.setNextNode(nextNode);
