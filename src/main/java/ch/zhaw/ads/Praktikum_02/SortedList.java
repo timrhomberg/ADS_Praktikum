@@ -19,12 +19,11 @@ public class SortedList extends MyList {
 
             } else {
                 ListNode newNode = new ListNode(o);
-                ListNode searchNode = head;
                 ListNode lastNode = getLastNode();
                 lastNode.setNextNode(newNode);
                 newNode.setPrevNode(lastNode);
                 newNode.setNextNode(head);
-                head.setPrevNode(lastNode);
+                head.setPrevNode(newNode);
             }
             size++;
             return true;
