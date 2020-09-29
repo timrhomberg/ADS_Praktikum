@@ -3,8 +3,8 @@ package ch.zhaw.ads.Praktikum_02;
 import java.util.*;
 
 public class MyList<T extends Comparable<T>> extends AbstractList<T> {
-    private ListNode<T> head;
-    private int size = 0;
+    protected ListNode<T> head;
+    protected int size = 0;
 
     @Override
     public int size() {
