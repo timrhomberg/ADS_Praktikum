@@ -18,15 +18,6 @@ dependencies {
 }
 
 
-
-test {
-    filter {
-        //include all tests from package
-        includeTestsMatching "ch.zhaw.ads.Praktikum_01.*"
-    }
-}
-
-
 class PraktikumDateCalc {
     public static String generatePraktikumNummer() {
         Calendar semesterStartDate = Calendar.getInstance();

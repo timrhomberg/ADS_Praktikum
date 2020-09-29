@@ -2,8 +2,8 @@ package ch.zhaw.ads.Praktikum_02;
 
 import java.util.*;
 
-public class MyList extends AbstractList<Object> {
-    private ListNode head;
+public class MyList<T extends Comparable<T>> extends AbstractList<T> {
+    private ListNode<T> head;
     private int size = 0;
 
     @Override
@@ -17,16 +17,15 @@ public class MyList extends AbstractList<Object> {
     }
 
     @Override
-    public boolean add(Object o) {
+    public boolean add(T o) {
         if (o != null) {
             if (head == null) {
-                head = new ListNode(o);
+                head = new ListNode<>(o);
                 head.setNextNode(head);
                 head.setPrevNode(head);
-
             } else {
-                ListNode newNode = new ListNode(o);
-                ListNode lastNode = getLastNode();
+                ListNode<T> newNode = new ListNode<T>(o);
+                ListNode<T> lastNode = getLastNode();
                 lastNode.setNextNode(newNode);
                 newNode.setPrevNode(lastNode);
                 newNode.setNextNode(head);
@@ -39,33 +38,34 @@ public class MyList extends AbstractList<Object> {
         }
     }
 
-    public ListNode getLastNode() {
-        ListNode listNode = head;
+    public ListNode<T> getLastNode() {
+        ListNode<T> listNode = head;
         while(listNode.getNextNode() != head){
             listNode = listNode.getNextNode();
         }
         return listNode;
     }
 
-    @Override
     public boolean remove(Object o) {
-        ListNode listNode = head;
+        ListNode<T> listNode = head;
+        ListNode<T> searchNode = new ListNode<>();
+        searchNode.setData((T) o);
         if (o == null || head == null) return false;
         boolean stop = false;
         do {
-            if(listNode.equals(o)) {
+            if(listNode.compareTo(searchNode) == 0) {
                 if (size == 1) {
                     clear();
-                } else if (head.equals(o)) {
-                    ListNode nextNode = listNode.getNextNode();
-                    ListNode prevNode = listNode.getPrevNode();
+                } else if (head.compareTo(searchNode) == 0) {
+                    ListNode<T> nextNode = listNode.getNextNode();
+                    ListNode<T> prevNode = listNode.getPrevNode();
                     head = nextNode;
                     head.setPrevNode(prevNode);
                     prevNode.setNextNode(head);
                     size--;
                 } else {
-                    ListNode nextNode = listNode.getNextNode();
-                    ListNode prevNode = listNode.getPrevNode();
+                    ListNode<T> nextNode = listNode.getNextNode();
+                    ListNode<T> prevNode = listNode.getPrevNode();
                     prevNode.setNextNode(nextNode);
                     nextNode.setPrevNode(prevNode);
                     size--;
@@ -85,8 +85,8 @@ public class MyList extends AbstractList<Object> {
     }
 
     @Override
-    public Object get (int pos) {
-        ListNode node = this.head;
+    public T get (int pos) {
+        ListNode<T> node = this.head;
         while (pos > 0) {
             node = node.next;
             pos--;

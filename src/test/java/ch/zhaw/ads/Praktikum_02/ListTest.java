@@ -7,11 +7,11 @@ import java.util.*;
 
 public class ListTest {
 
-    List<Object> list;
+    List<String> list;
 
     @Before
     public void setUp() throws Exception {
-        list = new MyList();
+        list = new MyList<>();
     }
 
     @Test
@@ -47,8 +47,6 @@ public class ListTest {
         assertEquals(o, "C");
     }
 
-
-
     @Test
     public void testSize() {
         list.clear();
@@ -72,28 +70,27 @@ public class ListTest {
 
     @Test
     public void testMixed() {
-        list.clear();
-        List list2 = new LinkedList();
+        MyList<Character> list1 = new MyList<>();
+        List<Character> list2 = new LinkedList<Character>();
         for (int i = 0; i < 100; i++) {
             Character c = (char) ('A' + (Math.random()*26));
             int op = (int)(Math.random()*2);
             switch (op) {
                 case 0 :
-                    list.add(c);
+                    list1.add(c);
                     list2.add(c);
                     break;
                 case 1 :
-                    list.remove(c);
+                    list1.remove(c);
                     list2.remove(c);
                     break;
             }
         }
-        assertEquals(list2.size(), list.size());
-        for (int i = 0; i < list.size(); i++) {
-            char c1 = (char)list.get(i);
+        assertEquals(list2.size(), list1.size());
+        for (int i = 0; i < list1.size(); i++) {
+            char c1 = (char)list1.get(i);
             char c2 = (char)list2.get(i);
             assertEquals(c1,c2);
         }
     }
-
 }

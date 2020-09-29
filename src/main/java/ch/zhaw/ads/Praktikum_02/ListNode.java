@@ -1,49 +1,47 @@
 package ch.zhaw.ads.Praktikum_02;
 
-import java.util.Comparator;
-import java.util.Objects;
+public class ListNode<U extends Comparable<U>> implements Comparable<ListNode<U>> {
+    U data;
+    ListNode<U> next, prev;
 
-public class ListNode {
-    Object data;
-    ListNode next, prev;
+    ListNode() {}
 
-    ListNode (Object o) {
+    ListNode(U o) {
         data = o;
         next = null;
         prev = null;
     }
 
-    public void setNextNode(ListNode next) {
+    public void setNextNode(ListNode<U> next) {
         this.next = next;
     }
 
-    public void setPrevNode(ListNode prev) {
+    public void setPrevNode(ListNode<U> prev) {
         this.prev = prev;
     }
 
-    public ListNode getNextNode() {
-        return next;
+    public ListNode<U> getNextNode() {
+        return this.next;
     }
 
-    public ListNode getPrevNode() {
+    public ListNode<U> getPrevNode() {
         return this.prev;
     }
 
-    public Object getData() {
+    public U getData() {
         return data;
     }
 
-    @Override // o = ListNode
-    public boolean equals(Object o) {
-        /*if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ListNode listNode = (ListNode) o;
-        return data.equals(listNode.data);*/
-        return o.hashCode() == hashCode();
+    public void setData(U data) {
+        this.data = data;
     }
 
     @Override
-    public int hashCode() {
-        return data.hashCode();
+    public int compareTo(ListNode<U> o) {
+        if(o == null) {
+            throw new NullPointerException("Comparable may not be a null");
+        }
+        // using the java compare method
+        return data.compareTo(o.getData());
     }
 }
