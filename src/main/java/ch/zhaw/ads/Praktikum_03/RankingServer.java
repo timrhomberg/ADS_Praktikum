@@ -10,26 +10,36 @@ public class RankingServer implements CommandExecutor {
     @Override
     public String execute(String command) throws Exception {
         if (insertCompetitor(command)) {
-            // Rangliste
-            Collections.sort(competitor);
-            for (int rank = 1; rank < competitor.size(); rank++) {
-                Competitor_ToDo competitor_toDo = competitor.get(rank);
-                competitor_toDo.setRank(rank);
-            }
-            // Nameliste
-            NamelistCompare namelistCompare = new NamelistCompare();
-            Collections.sort(competitor, namelistCompare);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("Nr Name,Vorname  JG   Wohnort   Zeit\n");
-            for (int rank = 1; rank < competitor.size(); rank++) {
-                Competitor_ToDo competitor_toDo = competitor.get(rank);
-                stringBuilder.append(competitor_toDo.toString());
-                stringBuilder.append("\n");
-            }
-            return stringBuilder.toString();
+            sortRank();
+            sortName();
+            return getOutputData().toString();
         } else {
             return "Not worked";
         }
+    }
+
+    public StringBuilder getOutputData() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Nr Name,Vorname  JG   Wohnort   Zeit\n");
+        for (Competitor_ToDo competitor: this.competitor) {
+            stringBuilder.append(competitor.toString());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder;
+    }
+
+    public void sortRank() {
+        Collections.sort(competitor);
+        for (int rank = 1; rank < competitor.size(); rank++) {
+            Competitor_ToDo competitor_toDo = competitor.get(rank);
+            competitor_toDo.setRank(rank);
+        }
+    }
+
+    // Namelist
+    public void sortName() {
+        NamelistCompare namelistCompare = new NamelistCompare();
+        Collections.sort(competitor, namelistCompare);
     }
 
     private boolean insertCompetitor(String args) {
