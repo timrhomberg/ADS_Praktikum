@@ -3,7 +3,7 @@ package ch.zhaw.ads.Praktikum_03;
 import java.util.*;
 import java.text.*;
 
-public class Competitor_ToDo {
+public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
     private String name;
     private String country;
     private long time;
@@ -12,7 +12,15 @@ public class Competitor_ToDo {
     private int rank;
 
     public Competitor_ToDo(int startNr, String name, int jg, String country, String time) {
-        // TODO: implement
+        this.startNr = startNr;
+        this.name = name;
+        this.jg = jg;
+        this.country = country;
+        try {
+            this.time = Competitor_ToDo.parseTime(time);
+        } catch (ParseException e) {
+            System.err.println("Error while parsing time!");
+        }
     }
 
     public void setRank(int rank) {
@@ -51,4 +59,8 @@ public class Competitor_ToDo {
         return sb.toString();
     }
 
+    @Override
+    public int compareTo(Competitor_ToDo o) {
+        return Long.compare(this.time, o.time);
+    }
 }
