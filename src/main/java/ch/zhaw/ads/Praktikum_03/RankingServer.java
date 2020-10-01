@@ -30,9 +30,9 @@ public class RankingServer implements CommandExecutor {
 
     public void sortRank() {
         Collections.sort(competitor);
-        for (int rank = 1; rank < competitor.size(); rank++) {
+        for (int rank = 0; rank < competitor.size(); rank++) {
             Competitor_ToDo competitor_toDo = competitor.get(rank);
-            competitor_toDo.setRank(rank);
+            competitor_toDo.setRank(rank + 1);
         }
     }
 
@@ -42,7 +42,7 @@ public class RankingServer implements CommandExecutor {
         Collections.sort(competitor, namelistCompare);
     }
 
-    private boolean insertCompetitor(String args) {
+    public boolean insertCompetitor(String args) {
         String[] lines = args.split("\n");
         Iterator<String> iterator = Arrays.stream(lines).iterator();
         while (iterator.hasNext()) {
