@@ -27,6 +27,10 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
         this.rank = rank;
     }
 
+    public int getRank() {
+        return this.rank;
+    }
+
     public void setTime(long time) {
         this.time = time;
     }
@@ -52,13 +56,32 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.S");
         StringBuilder sb = new StringBuilder();
-        sb.append(rank);sb.append(" ");
-        sb.append(name); sb.append(" ");
-        sb.append(Integer.toString(jg)); sb.append(" ");
+        sb.append(rank);
+        sb.append(" ");
+        sb.append(name);
+        sb.append(" ");
+        sb.append(Integer.toString(jg));
+        sb.append(" ");
         sb.append(df.format(new Date(time)));
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object anObject) {
+        if(this == anObject) {
+            return true;
+        }
+        if(anObject instanceof Competitor_ToDo) {
+            Competitor_ToDo anotherCompetitor = (Competitor_ToDo) anObject;
+            return this.jg == anotherCompetitor.jg
+                    && this.rank == anotherCompetitor.rank
+                    && this.startNr == anotherCompetitor.startNr
+                    && this.name.equals(anotherCompetitor.name)
+                    && this.country.equals(anotherCompetitor.country)
+                    && Double.compare(this.time, anotherCompetitor.time) == 0;
+        }
+        return false;
+    }
     @Override
     public int compareTo(Competitor_ToDo o) {
         return Long.compare(this.time, o.time);

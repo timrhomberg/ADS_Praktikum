@@ -12,14 +12,11 @@ public class RankingServer implements CommandExecutor {
         if (insertCompetitor(command)) {
             // Rangliste
             Collections.sort(competitor);
-            //StringBuilder stringBuilder = new StringBuilder();
-            //stringBuilder.append("Nr Name,Vorname  JG   Wohnort   Zeit\n");
             for (int rank = 1; rank < competitor.size(); rank++) {
                 Competitor_ToDo competitor_toDo = competitor.get(rank);
                 competitor_toDo.setRank(rank);
-                //stringBuilder.append(competitor_toDo.toString());
-                //stringBuilder.append("\n");
             }
+            // Nameliste
             NamelistCompare namelistCompare = new NamelistCompare();
             Collections.sort(competitor, namelistCompare);
             StringBuilder stringBuilder = new StringBuilder();
