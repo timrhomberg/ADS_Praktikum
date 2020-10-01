@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CompetitorTest {
     Competitor_ToDo competitorDaniel;
     Competitor_ToDo competitorOtt;
-    List<Competitor_ToDo> competitor;
 
     @Before
     public void setUp() throws Exception {
@@ -21,5 +21,6 @@ public class CompetitorTest {
     @Test
     public void testEqualsMethod() throws Exception {
         assertTrue(competitorDaniel.equals(competitorDaniel));
+        assertFalse(competitorDaniel.equals(competitorOtt));
     }
 }

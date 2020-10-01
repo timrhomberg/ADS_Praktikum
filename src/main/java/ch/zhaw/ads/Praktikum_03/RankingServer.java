@@ -43,6 +43,7 @@ public class RankingServer implements CommandExecutor {
     }
 
     public boolean insertCompetitor(String args) {
+        if (args.isBlank()) return false;
         String[] lines = args.split("\n");
         Iterator<String> iterator = Arrays.stream(lines).iterator();
         while (iterator.hasNext()) {
