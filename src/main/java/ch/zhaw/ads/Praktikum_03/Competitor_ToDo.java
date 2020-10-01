@@ -74,7 +74,7 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
                     && this.startNr == anotherCompetitor.startNr
                     && this.name.equals(anotherCompetitor.name)
                     && this.country.equals(anotherCompetitor.country)
-                    && Double.compare(this.time, anotherCompetitor.time) == 0;
+                    && Long.compare(this.time, anotherCompetitor.time) == 0;
         }
         return false;
     }
