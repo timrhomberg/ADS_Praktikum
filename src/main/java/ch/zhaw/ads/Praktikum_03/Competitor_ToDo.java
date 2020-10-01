@@ -27,10 +27,6 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
         this.rank = rank;
     }
 
-    public int getRank() {
-        return this.rank;
-    }
-
     public void setTime(long time) {
         this.time = time;
     }
