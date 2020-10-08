@@ -5,7 +5,7 @@ import ch.zhaw.ads.CommandExecutor;
 import java.util.*;
 
 public class RankingServer implements CommandExecutor {
-    private final List<Competitor_ToDo> competitor = new ArrayList<>();
+    private final List<Competitor> competitor = new ArrayList<>();
 
     @Override
     public String execute(String command) throws Exception {
@@ -21,7 +21,7 @@ public class RankingServer implements CommandExecutor {
     public StringBuilder getOutputData() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Nr Name,Vorname  JG   Wohnort   Zeit\n");
-        for (Competitor_ToDo competitor: this.competitor) {
+        for (Competitor competitor: this.competitor) {
             stringBuilder.append(competitor.toString());
             stringBuilder.append("\n");
         }
@@ -31,8 +31,8 @@ public class RankingServer implements CommandExecutor {
     public void sortRank() {
         Collections.sort(competitor);
         for (int rank = 0; rank < competitor.size(); rank++) {
-            Competitor_ToDo competitor_toDo = competitor.get(rank);
-            competitor_toDo.setRank(rank + 1);
+            Competitor competitor_ = competitor.get(rank);
+            competitor_.setRank(rank + 1);
         }
     }
 
@@ -49,7 +49,7 @@ public class RankingServer implements CommandExecutor {
         while (iterator.hasNext()) {
             String line = iterator.next();
             String[] elements = line.split(";");
-            competitor.add(new Competitor_ToDo(Integer.parseInt(elements[0]),
+            competitor.add(new Competitor(Integer.parseInt(elements[0]),
                     elements[1],
                     Integer.parseInt(elements[2]),
                     elements[3],

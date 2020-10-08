@@ -3,7 +3,7 @@ package ch.zhaw.ads.Praktikum_03;
 import java.util.*;
 import java.text.*;
 
-public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
+public class Competitor implements Comparable<Competitor> {
     private String name;
     private String country;
     private long time;
@@ -11,13 +11,13 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
     private int startNr;
     private int rank;
 
-    public Competitor_ToDo(int startNr, String name, int jg, String country, String time) {
+    public Competitor(int startNr, String name, int jg, String country, String time) {
         this.startNr = startNr;
         this.name = name;
         this.jg = jg;
         this.country = country;
         try {
-            this.time = Competitor_ToDo.parseTime(time);
+            this.time = Competitor.parseTime(time);
         } catch (ParseException e) {
             System.err.println("Error while parsing time!");
         }
@@ -67,8 +67,8 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
         if(this == anObject) {
             return true;
         }
-        if(anObject instanceof Competitor_ToDo) {
-            Competitor_ToDo anotherCompetitor = (Competitor_ToDo) anObject;
+        if(anObject instanceof Competitor) {
+            Competitor anotherCompetitor = (Competitor) anObject;
             return this.jg == anotherCompetitor.jg
                     && this.rank == anotherCompetitor.rank
                     && this.startNr == anotherCompetitor.startNr
@@ -79,7 +79,7 @@ public class Competitor_ToDo implements Comparable<Competitor_ToDo> {
         return false;
     }
     @Override
-    public int compareTo(Competitor_ToDo o) {
+    public int compareTo(Competitor o) {
         return Long.compare(this.time, o.time);
     }
 }
