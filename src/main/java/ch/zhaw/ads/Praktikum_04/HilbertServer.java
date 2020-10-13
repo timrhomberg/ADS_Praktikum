@@ -8,7 +8,7 @@ public class HilbertServer implements CommandExecutor {
     @Override
     public String execute(String command) throws Exception {
         int depth = Integer.parseInt(command);
-        double dist = 0.8 / (Math.pow(2,depth+1)-1);
+        double dist = 2.0 / (Math.pow(2,depth+1)-1);
         double startCoordinate = (1 - (((Math.pow(2, depth)) - 1) * dist)) / 2;
         tim = new Turtle(startCoordinate, startCoordinate);
         try {
