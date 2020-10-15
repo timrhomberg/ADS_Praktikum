@@ -78,7 +78,6 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
         // to be implemented
     }
 
-
     protected int calcSize(TreeNode p) {
         return 0;
         // to be implemented
@@ -127,5 +126,4 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
                     indent + (isRight ? " |      " : "        "));
         }
     }
-
 }
