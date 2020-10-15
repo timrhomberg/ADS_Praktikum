@@ -1,7 +1,5 @@
 package ch.zhaw.ads.Praktikum_05;
 
-import java.util.*;
-
 public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     protected TreeNode<T> root;
 
