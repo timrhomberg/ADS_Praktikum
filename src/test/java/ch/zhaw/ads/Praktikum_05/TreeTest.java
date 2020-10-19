@@ -62,6 +62,11 @@ public class TreeTest {
     public void testSize() {
         assertEquals(4, tree.size());
     }
+
+    @Test
+    public void testHeight() {
+        assertEquals(3, tree.height());
+    }
 }
 
 

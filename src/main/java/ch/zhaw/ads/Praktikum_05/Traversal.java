@@ -10,5 +10,5 @@ public interface Traversal<T extends Comparable<T>> {
     /* traverse elements of tree in levelorder */
     public void levelorder(Visitor<T> vistor);
     /* traverse elements of tree within range */
-    public void interval(T min, T max, Visitor<T> v);
+    public void interval(Comparable<T> min, Comparable<T> max, Visitor<T> v);
 }

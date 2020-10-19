@@ -66,7 +66,8 @@ public class TreeTraversal<T extends Comparable<T>> implements Traversal<T> {
     }
 
     @Override
-    public void interval(T min, T max, Visitor<T> v) {
+    public void interval(Comparable<T> min, Comparable<T> max, Visitor<T> v) {
+
         // to be done
     }
 }
