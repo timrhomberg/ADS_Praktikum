@@ -11,7 +11,7 @@ package ch.zhaw.ads.Praktikum_01_Lösung;
 
 import java.util.*;
 
-class ListStack {
+public class ListStack {
 
 	private List list = new LinkedList();
 
