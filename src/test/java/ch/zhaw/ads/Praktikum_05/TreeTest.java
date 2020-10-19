@@ -57,6 +57,11 @@ public class TreeTest {
         tree.traversal().interval("0", "1", v);
         assertEquals("interval", "", v.toString());
     }
+
+    @Test
+    public void testSize() {
+        assertEquals(4, tree.size());
+    }
 }
 
 

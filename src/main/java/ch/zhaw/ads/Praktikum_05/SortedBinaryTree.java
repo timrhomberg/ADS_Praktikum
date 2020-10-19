@@ -77,8 +77,14 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     protected int calcSize(TreeNode p) {
-        return 0;
-        // to be implemented
+        int size = 0;
+        if (p != null) {
+            size += calcSize(p.left);
+            System.out.println(p.getValue());
+            size++;
+            size += calcSize(p.right);
+        }
+        return size;
     }
 
     public int height() {
