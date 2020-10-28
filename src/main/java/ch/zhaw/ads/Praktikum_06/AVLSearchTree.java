@@ -101,7 +101,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
                 node.right = removeAt(node.right, x, removed);
             }
             // to be done
-            return node;
+            return balance(node);
         }
     }
 

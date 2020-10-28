@@ -115,7 +115,7 @@ public class AVLSearchTreeTest {
     }
 }
 
-class MyVisitor<T> implements Visitor<T> {
+class MyVisitor<T extends Comparable<T>> implements Visitor<T> {
     StringBuilder output;
 
     MyVisitor() {
