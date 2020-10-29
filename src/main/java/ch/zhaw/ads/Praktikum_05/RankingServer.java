@@ -24,6 +24,10 @@ public class RankingServer implements CommandExecutor {
         return v.toString();
     }
 
+    public SortedBinaryTree<Competitor> getCompetitors() {
+        return competitor;
+    }
+
     public boolean insertCompetitor(String args) {
         if (args.isBlank()) return false;
         String[] lines = args.split("\n");

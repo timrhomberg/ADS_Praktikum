@@ -1,12 +1,17 @@
 package ch.zhaw.ads.Praktikum_06;
 
 import java.util.*;
+
+import ch.zhaw.ads.Praktikum_05.RankingServer;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
 public class AVLSearchTreeTest {
     Tree<String> tree;
+    Tree<String> binTree;
+    RankingTreeServer rankingServer;
+    RankingServer binRankingServer;
 
     private void init(Tree<String> tree) {
         tree.add("E");
@@ -23,7 +28,26 @@ public class AVLSearchTreeTest {
     @Before
     public void setUp() throws Exception {
         tree = new AVLSearchTree<String>();
+        rankingServer = new RankingTreeServer();
+        binRankingServer = new RankingServer();
         init(tree);
+    }
+
+    /*
+    1. Implementiere neuen RankingServer mit AVLSearchTree
+    2. Getter für competitors und root-Node
+    3. CalcHeight implementieren
+    4. Ausführen
+    --> Dasselbe für den BinarySortedTree
+     */
+    @Test
+    public void testRankingServer() throws Exception {
+        rankingServer.insertCompetitor(rankingServer.openFile());
+        int result = rankingServer.getCompetitors().calcHeight(rankingServer.getCompetitors().getRoot());
+        System.out.println(result);
+        binRankingServer.insertCompetitor(rankingServer.openFile());
+        int binResult = binRankingServer.getCompetitors().calcHeight(binRankingServer.getCompetitors().getRoot());
+        System.out.println(binResult);
     }
 
     @Test

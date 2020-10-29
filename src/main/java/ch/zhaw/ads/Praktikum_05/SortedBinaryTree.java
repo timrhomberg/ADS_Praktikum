@@ -71,7 +71,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
         return new TreeTraversal<>(root);
     }
 
-    protected int calcHeight(TreeNode<T> node) {
+    public int calcHeight(TreeNode<T> node) {
         if(root == null) {
             System.out.println("Tree is empty");
             return 0;
@@ -111,6 +111,10 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 
     public boolean balanced() {
         throw new UnsupportedOperationException();
+    }
+
+    public TreeNode<T> getRoot() {
+        return root;
     }
 
     // only for testing and debugging purposes: show the structure of the tree

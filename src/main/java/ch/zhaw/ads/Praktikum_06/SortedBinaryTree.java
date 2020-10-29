@@ -143,4 +143,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
+    public TreeNode<T> getRoot() {
+        return root;
+    }
 }
