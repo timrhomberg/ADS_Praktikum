@@ -13,8 +13,9 @@ public class RouteServerTest {
 
     @Test
     public void testRouteServer() throws Exception {
-        routeServer.execute(openFile("/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/ADS_Praktikum/src/main/java/ch/zhaw/ads/Praktikum_07/Swiss.txt"));
-
+        String result = routeServer.execute(openFile("/Users/tim/Google Drive/_Schule/Bachelor IT/Semester_3/Algorithmen und Datenstrukturen/Praktika und Lösungen/ADS_Praktikum/src/main/java/ch/zhaw/ads/Praktikum_07/Swiss.txt"));
+        assertNotNull(result);
+        System.out.println(result);
     }
 
     private String openFile(String name)  throws Exception {

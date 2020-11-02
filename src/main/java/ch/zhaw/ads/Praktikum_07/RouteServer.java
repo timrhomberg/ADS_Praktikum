@@ -14,7 +14,7 @@ public class RouteServer implements CommandExecutor {
         if (computeInput(command)) {
             dijkstra("Winterthur", "Lugano");
             outputPath("Winterthur", "Lugano");
-            return displayInput();
+            return outputPath("Winterthur", "Lugano");
         } else {
             return "Nichts i.o.";
         }
@@ -94,19 +94,14 @@ public class RouteServer implements CommandExecutor {
         }
     }
 
-    private void outputPath(String from, String goal) {
+    private String outputPath(String from, String goal) {
         DijkstraNode lastNode = graph.findNode(goal);
-        DijkstraNode firstNode = graph.findNode(from);
-        ArrayList<DijkstraNode> way = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
         while (lastNode.prev != null) {
-            way.add(lastNode);
-            //System.out.println("Prev: " + lastNode.prev.name + " Aktuell: " + lastNode.name + " Dist: " + lastNode.dist);
+            stringBuilder.append("Aktuell: " + lastNode.name + " Prev: " + lastNode.prev.name + " Dist: " + lastNode.dist + "\n");
             lastNode = lastNode.prev;
         }
-        way.add(firstNode);
-        for (int i = way.size() - 1; i >= 0; i--) {
-            System.out.println(way.get(i).name + "     Dist: " + way.get(i).dist);
-        }
+        return stringBuilder.toString();
     }
 
     public DijkstraNode findNodeWithSmallestDist(DijkstraNode current) {
