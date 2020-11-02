@@ -62,7 +62,7 @@ public class RouteServer implements CommandExecutor {
             node.prev = null;
         }
 
-        LinkedList<DijkstraNode> red = new LinkedList<>();
+        Queue<DijkstraNode> red = new PriorityQueue<>();
         DijkstraNode start = graph.findNode(from);
         start.dist = 0;
         red.add(start);
@@ -118,34 +118,6 @@ public class RouteServer implements CommandExecutor {
             };
         }
         return foundNode;
-    }
-
-    public TreeMap findNodeWithSmallestDist2(String from, String goal) {
-        DijkstraNode goalNode = graph.findNode(goal);
-        TreeMap<DijkstraNode, Double> redNodes = new TreeMap<>();
-        DijkstraNode startNode = graph.findNode(from);
-        startNode.dist = 0;
-        redNodes.put(startNode, 0.0);
-        while (!redNodes.isEmpty()) {
-            DijkstraNode current = redNodes.pollLastEntry().getKey(); // roter Knoten mit kürzeste Distanz
-            if (current == goalNode) return null; // kürzester Pfad gefunden -> Abbruch
-            current.mark = GREEN; // 'grüne' Knoten werden markiert
-            for (Object neighbour : current.edges) {
-                Edge neighbourEdge = (Edge) neighbour;
-                DijkstraNode neighbourNode = (DijkstraNode) neighbourEdge.dest;
-                if (neighbourNode.mark != GREEN) {
-                    if (!redNodes.containsKey(neighbourNode)) { redNodes.put(neighbourNode, 0.0); }
-                    double dist = current.dist + neighbourEdge.weight;
-                    if (dist < neighbourNode.dist) {
-                        neighbourNode.dist = dist;
-                        neighbourNode.prev = current;
-                    }
-                }
-            }
-            //for all neighbour in successors(current) {
-            //}
-        }
-        return redNodes;
     }
 }
 
