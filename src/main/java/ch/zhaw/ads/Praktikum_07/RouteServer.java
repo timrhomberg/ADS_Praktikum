@@ -13,8 +13,7 @@ public class RouteServer implements CommandExecutor {
     public String execute(String command) throws Exception {
         if (computeInput(command)) {
             dijkstra("Winterthur", "Lugano");
-            outputPath("Winterthur", "Lugano");
-            return outputPath("Winterthur", "Lugano");
+            return outputPath("Lugano");
         } else {
             return "Nichts i.o.";
         }
@@ -94,7 +93,7 @@ public class RouteServer implements CommandExecutor {
         }
     }
 
-    private String outputPath(String from, String goal) {
+    private String outputPath(String goal) {
         DijkstraNode lastNode = graph.findNode(goal);
         StringBuilder stringBuilder = new StringBuilder();
         while (lastNode.prev != null) {
