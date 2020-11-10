@@ -162,7 +162,7 @@ public class ExBoxFrame extends JFrame implements ActionListener, ItemListener {
 		output.append("\nERROR:" + s + "\n");
 	}
 
-	private void interpret(String args) throws Exception {
+	private void interpret(String args) throws Throwable {
 		if (reconnect.isSelected() && lastServer != null) {
 			command = ServerFactory.createServer(lastServer);
 		}
@@ -266,7 +266,7 @@ public class ExBoxFrame extends JFrame implements ActionListener, ItemListener {
 			
 	}
 	
-	private void openFile()  throws Exception {
+	private void openFile() throws Throwable {
 		String name = openFileDialog(null, null);
 
 		BufferedReader br = new BufferedReader(

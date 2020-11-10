@@ -1,7 +1,6 @@
 package ch.zhaw.ads.Praktikum_08;
 
 import ch.zhaw.ads.CommandExecutor;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -11,8 +10,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class LabyrinthServer implements CommandExecutor {
+
+
     private Graph<LabyrinthNode,Edge> graph;
     private final ServerGraphics serverGraphics;
+    private LabyrinthNode<Edge> goal;
 
     public LabyrinthServer() {
         this.graph = new AdjListGraph<>(LabyrinthNode.class, Edge.class);
@@ -20,32 +22,34 @@ public class LabyrinthServer implements CommandExecutor {
     }
 
     @Override
-    public String execute(String command) {
-        try {
-            insert(openFile());
-            /*serverGraphics.setColor(Color.BLACK);
-            serverGraphics.drawRect(0.1,0.1,0.8,0.8);
-            serverGraphics.fillRect(0.1,0.1,0.8,0.8);*/
-            makeBlack();
-            Iterable<LabyrinthNode> nodes = graph.getNodes();
-            for(LabyrinthNode lNode : nodes) {
-                Iterable iter = lNode.getEdges();
-                for(Object e : iter) {
-                    Edge edge = (Edge) e;
-                    serverGraphics.setColor(Color.WHITE);
-                    drawPath(serverGraphics, lNode.getName(), edge.getDest().toString(), false);
-                }
-            }
-            return serverGraphics.getTrace();
-        } catch (Throwable e) {
-            throw new RuntimeException();
-        }
+    public String execute(String command) throws Throwable {
+        insert(openFile());
+        paintBlack();
+        printLabyrinth();
+        goal = graph.findNode("3-0");
+        LabyrinthNode<Edge> start = graph.findNode("0-6");
+        serverGraphics.setColor(Color.RED);
+        search(start);
+        return serverGraphics.getTrace();
     }
 
-    private void makeBlack() {
+    private void paintBlack() {
         serverGraphics.setColor(Color.BLACK);
-        serverGraphics.fillRect(0, 0, 1, 1);
-        serverGraphics.setColor(Color.WHITE);
+        serverGraphics.drawRect(0,0,1,1);
+        serverGraphics.fillRect(0,0,1,1);
+    }
+
+    private void printLabyrinth() {
+        Iterable<LabyrinthNode> nodes = graph.getNodes();
+        for(LabyrinthNode lNode : nodes) {
+            Iterable iter = lNode.getEdges();
+            for(Object e : iter) {
+                Edge edge = (Edge) e;
+                serverGraphics.setColor(Color.WHITE);
+                LabyrinthNode neighbour = (LabyrinthNode) edge.getDest();
+                drawPath(lNode.getName(), neighbour.getName(), false);
+            }
+        }
     }
 
     public boolean insert(String routes) throws Throwable {
@@ -73,10 +77,8 @@ public class LabyrinthServer implements CommandExecutor {
         return b.toString();
     }
 
-    final double SCALE = 10;
-    private void drawPath(ServerGraphics g, String from, String
-            to, boolean mouse) {
-        double scale = 10;
+    private void drawPath(String from, String to, boolean mouse) {
+        final double SCALE = 10;
         double xh0 = from.charAt(0) - '0';
         double yh0 = from.charAt(2) - '0';
         double xh1 = to.charAt(0) - '0';
@@ -86,8 +88,30 @@ public class LabyrinthServer implements CommandExecutor {
         double x1 = Math.max(xh0,xh1)/SCALE;
         double y1 = Math.max(yh0,yh1)/SCALE;
         double w = 1/SCALE;
-        if (mouse) g.drawLine(x0+w/2,y0+w/2,x1+w/2,y1+w/2); else {
-            if (y0 == y1) g.fillRect(x0,y0,x1-x0+w,w);
-            else g.fillRect(x0,y0,w,y1-y0+w);
-        } }
+        if (mouse) serverGraphics.drawLine(x0+w/2,y0+w/2,x1+w/2,y1+w/2);
+        else {
+            if (y0 == y1)
+                serverGraphics.fillRect(x0,y0,x1-x0+w,w);
+            else
+                serverGraphics.fillRect(x0,y0,w,y1-y0+w);
+        }
+    }
+
+    private boolean search(LabyrinthNode<Edge> currentNode) {
+        currentNode.setMark(true);
+        if(currentNode == goal) return true;
+
+        for (Edge edge : currentNode.edges) {
+            LabyrinthNode<Edge> node = (LabyrinthNode<Edge>) edge.getDest();
+            if (!node.getMark()) {
+                if (search(node)) {
+                    System.out.println(currentNode.name + " " + node.name);
+                    drawPath(node.name, currentNode.name, true);
+                    return true;
+                }
+            }
+        }
+        currentNode.setMark(false);
+        return false;
+    }
 }

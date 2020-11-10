@@ -18,5 +18,5 @@ public interface CommandExecutor {
      * @param command Kommandozeile
      * @return Resultat, ueblicherweise eine oder mehrere Zeilen.
      */
-	 String execute(String command) throws Exception;
+	 String execute(String command) throws Exception, Throwable;
 }//interface ch.zhaw.ads.CommandExecutor

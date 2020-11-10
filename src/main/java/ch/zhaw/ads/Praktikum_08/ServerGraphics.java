@@ -2,6 +2,8 @@ package ch.zhaw.ads.Praktikum_08;
 
 import java.awt.*;
 
+import static java.lang.Math.sqrt;
+
 public class ServerGraphics {
 
   private StringBuffer b;
@@ -53,5 +55,12 @@ public class ServerGraphics {
     b.append(Integer.toString(c.getRed()));b.append("\" green=\"");
     b.append(Integer.toString(c.getGreen()));b.append("\" blue=\"");
     b.append(Integer.toString(c.getBlue()));b.append("\"/>\n");
+  }
+
+  public void drawTriangle(double x, double y, double w) {
+    double h = (w / 2) * sqrt(3);
+    drawLine(x,y,x + w, y);
+    drawLine(x + w, y, w + x - (w / 2), h);
+    drawLine(w + x - (w / 2), h, x, y);
   }
 }
