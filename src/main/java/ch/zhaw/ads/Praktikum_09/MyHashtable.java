@@ -5,6 +5,7 @@ import java.util.*;
 public class MyHashtable<K,V> implements java.util.Map<K,V> {
     private K[] keys =   (K[]) new Object[10];
     private V[] values = (V[]) new Object[10];
+    private int maxSize;
 
     private int hash(Object k) {
         int h = Math.abs(k.hashCode());
@@ -12,43 +13,72 @@ public class MyHashtable<K,V> implements java.util.Map<K,V> {
     }
 
     public MyHashtable(int size) {
-        // to be done
+        if (size <= 0) throw new IllegalArgumentException("Size is too litle");
+        this.maxSize = size;
+        clear();
     }
 
     //  Removes all mappings from this map (optional operation).
     public void clear() {
-        // to be done
-        throw new UnsupportedOperationException();
+        for (int i = 0; i < maxSize; i++) {
+            keys[i] = null;
+            values[i] = null;
+        }
     }
 
     //  Associates the specified value with the specified key in this map (optional operation).
     public V put(K key, V value) {
-        // to be done
-        throw new UnsupportedOperationException();
+        int h = findPos(key);
+        if (keys[h] == null) {
+            keys[h] = key;
+            values[h] = value;
+            return value;
+        } else {
+            throw new IllegalArgumentException("There is a colision");
+        }
     }
 
     //  Returns the value to which this map maps the specified key.
     public V get(Object key) {
-        // to be done
-        throw new UnsupportedOperationException();
+        int h = findPos(key);
+        if (keys[h] == key) {
+            return values[h];
+        }
+        else return null;
+    }
+
+    public int findPos(Object x) {
+        int collisionNum = 0;
+        int currentPos = hash(x);
+
+        while (values[currentPos] != null &&
+                !values[currentPos].equals( x )) {
+            currentPos += 2 * ++collisionNum - 1;
+            currentPos = currentPos % values.length;
+        }
+        return currentPos;
     }
 
     //  Returns true if this map contains no key-value mappings.
     public boolean isEmpty() {
-        // to be done
-        throw new UnsupportedOperationException();
+        return values == null;
     }
 
     //  Removes the mapping for this key from this map if present (optional operation).
     public V remove(Object key) {
-        // to be done (Aufgabe 3)
-        throw new UnsupportedOperationException();
+        int h = findPos(key);
+        if (keys[h] != null) {
+            V value = values[h];
+            values[h] = null;
+            return value;
+        } else {
+            return null;
+        }
     }
 
     //  Returns the number of key-value mappings in this map.
     public int size() {
-        // to be done
-        throw new UnsupportedOperationException();
+        return this.maxSize;
     }
 
     // =======================================================================

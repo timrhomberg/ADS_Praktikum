@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Competitor implements Comparable<Competitor> {
     private String name;
@@ -52,7 +53,7 @@ public class Competitor implements Comparable<Competitor> {
         StringBuilder sb = new StringBuilder();
         sb.append("Rang: ");
         sb.append(rank);
-        sb.append(" StartNr: ");
+        sb.append(" Start Nr: ");
         sb.append(startNr);
         sb.append(" Name: ");
         sb.append(name);
@@ -66,5 +67,18 @@ public class Competitor implements Comparable<Competitor> {
     @Override
     public int compareTo(Competitor o) {
         return (int) (this.getTime() - o.getTime());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Competitor that = (Competitor) o;
+        return time == that.time && jg == that.jg && startNr == that.startNr && rank == that.rank && name.equals(that.name) && country.equals(that.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, country, time, jg, startNr, rank);
     }
 }
