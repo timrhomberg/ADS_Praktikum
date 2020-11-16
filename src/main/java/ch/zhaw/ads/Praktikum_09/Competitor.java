@@ -65,13 +65,18 @@ public class Competitor implements Comparable<Competitor> {
     }
 
     @Override
-    public int compareTo(Competitor o) {
-        return name.compareTo(o.getName()) +
-                country.compareTo(o.country) +
-                Long.compare(this.time, o.time) +
-                Integer.compare(this.jg, o.jg) +
-                Integer.compare(this.startNr, o.startNr) +
-                Integer.compare(this.rank, o.rank);
+    public int compareTo(Competitor toCompare) {
+        int c = name.compareTo(toCompare.name);
+        c = (c != 0) ? c : jg - toCompare.jg;
+        return c;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 13 + name.hashCode();
+        hash = hash * 17 + jg;
+        return hash;
     }
 
     @Override
@@ -80,10 +85,5 @@ public class Competitor implements Comparable<Competitor> {
         if (o == null || getClass() != o.getClass()) return false;
         Competitor that = (Competitor) o;
         return time == that.time && jg == that.jg && startNr == that.startNr && rank == that.rank && name.equals(that.name) && country.equals(that.country);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, country, time, jg, startNr, rank);
     }
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HashServer implements CommandExecutor {
-    private Map<String, Competitor> competitorMap;
+    private final Map<String, Competitor> competitorMap;
     private final static int STARTNR = 0;
     private final static int NAME = 1;
     private final static int JG = 2;
