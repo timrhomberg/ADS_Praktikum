@@ -3,9 +3,9 @@ package ch.zhaw.ads.Praktikum_09;
 import java.util.*;
 
 public class MyHashtable<K,V> implements java.util.Map<K,V> {
-    private K[] keys =   (K[]) new Object[10];
-    private V[] values = (V[]) new Object[10];
     private int maxSize;
+    private K[] keys =   (K[]) new Object[maxSize];
+    private V[] values = (V[]) new Object[maxSize];
 
     private int hash(Object k) {
         int h = Math.abs(k.hashCode());
@@ -13,9 +13,10 @@ public class MyHashtable<K,V> implements java.util.Map<K,V> {
     }
 
     public MyHashtable(int size) {
-        if (size <= 0) throw new IllegalArgumentException("Size is too litle");
+        if (size <= 0) throw new IllegalArgumentException("Size is too little");
         this.maxSize = size;
-        clear();
+        keys = (K[]) new Object[maxSize];
+        values = (V[]) new Object[maxSize];
     }
 
     //  Removes all mappings from this map (optional operation).
@@ -51,8 +52,8 @@ public class MyHashtable<K,V> implements java.util.Map<K,V> {
         int collisionNum = 0;
         int currentPos = hash(x);
 
-        while (values[currentPos] != null &&
-                !values[currentPos].equals( x )) {
+        while (keys[currentPos] != null &&
+                !keys[currentPos].equals( x )) {
             currentPos += 2 * ++collisionNum - 1;
             currentPos = currentPos % values.length;
         }

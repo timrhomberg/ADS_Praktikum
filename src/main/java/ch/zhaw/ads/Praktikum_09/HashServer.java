@@ -1,12 +1,8 @@
 package ch.zhaw.ads.Praktikum_09;
 
 import ch.zhaw.ads.CommandExecutor;
-import ch.zhaw.ads.Praktikum_06_Lösung.AVLSearchTree;
-import ch.zhaw.ads.Praktikum_06_Lösung.Tree;
-
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HashServer implements CommandExecutor {
@@ -31,7 +27,7 @@ public class HashServer implements CommandExecutor {
             String[] args = command.split(";");
             String name = args[0];
             String jg = args[1];
-            return name + " " + jg + " -> " + competitorMap.get(name + jg).toString();
+            return name + " " + jg + " -> " + competitorMap.get(name + jg).toString() + "\n";
         } else {
             String[] lines = command.split("\n");
             if (lines.length == 1) {
