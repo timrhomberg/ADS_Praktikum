@@ -89,7 +89,7 @@ public class MyHashtable<K, V> implements Map<K, V> {
     //  Returns the value to which this map maps the specified key.
     public V get(Object key) {
         int h = findPos(key);
-        if (keys[h].equals(key)) {
+        if (key.equals(keys[h])) {
             return values[h];
         }
         else return null;
