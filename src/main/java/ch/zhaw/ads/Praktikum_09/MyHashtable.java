@@ -1,6 +1,5 @@
 package ch.zhaw.ads.Praktikum_09;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -29,16 +28,6 @@ public class MyHashtable<K, V> implements Map<K, V> {
         keys = (K[]) new Object[maxSize];
         values = (V[]) new Object[maxSize];
         size = 0;
-    }
-
-    // return index to key or next empty entry
-    private int getIdx(Object key) {
-        int hash = hash(key);
-        int c = 0;
-        while (keys[hash] != null && !keys[hash].equals(key) && c < maxSize) {
-            hash = (hash + 1) % keys.length; c++;
-        }
-        return (c == maxSize) ? -1 : hash;
     }
 
     /**
@@ -100,7 +89,7 @@ public class MyHashtable<K, V> implements Map<K, V> {
     //  Returns the value to which this map maps the specified key.
     public V get(Object key) {
         int h = findPos(key);
-        if (keys[h] == key) {
+        if (keys[h].equals(key)) {
             return values[h];
         }
         else return null;
