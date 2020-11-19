@@ -18,7 +18,6 @@ public class MyHashtable<K, V> implements Map<K, V> {
     }
 
     public MyHashtable(int size) {
-        if (size <= 0) throw new IllegalArgumentException("Size is too little");
         this.maxSize = size;
         clear();
     }
