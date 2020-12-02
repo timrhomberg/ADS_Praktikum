@@ -1,0 +1,61 @@
+A1)
+
+AUSTAUSCH – AUFBAUSCH
+
+1. update(s -> f)
+2. update(z -> b)
+
+BARBAREN – BARBARA
+
+1. update(e -> a)
+2. delete(a)
+
+COCACOLA – COCAINA
+
+1. delete(c)
+2. update(o -> i)
+3. update(l -> n)
+
+A2)
+a)
+
+^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.(?!$)|$)){4}$
+
+# Explanation
+(
+  [0-9]         # 0-9
+  |             # or
+  [1-9][0-9]    # 10-99
+  |             # or
+  1[0-9][0-9]   # 100-199
+  |             # or
+  2[0-4][0-9]   # 200-249
+  |             # or
+  25[0-5]       # 250-255
+)
+(\.(?!$)|$))    # ensure IPv4 doesn't end with a dot
+{4}             # 4 times.
+
+b)
+^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$
+
+local-part
+
+    uppercase and lowercase Latin letters A to Z and a to z
+    digits 0 to 9
+    Allow dot (.), underscore (_) and hyphen (-)
+    dot (.) is not the first or last character
+    dot (.) does not appear consecutively, e.g. mkyong..yong@example.com is not allowed
+    Max 64 characters
+
+In email local-part, many special characters like #$%&'*+-/=? are technically valid, but most mail servers or web applications do not accept all of them.
+This email regex only accepts the general dot (.), underscore (_), and hyphen (-).
+
+domain
+
+    uppercase and lowercase Latin letters A to Z and a to z
+    digits 0 to 9
+    hyphen (-) is not the first or last character
+    dot (.) is not the first or last character
+    dot (.) does not appear consecutively
+    tld min 2 characters
