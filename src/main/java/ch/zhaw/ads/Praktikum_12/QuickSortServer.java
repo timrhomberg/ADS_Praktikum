@@ -22,19 +22,20 @@ public class QuickSortServer implements CommandExecutor {
     }
 
 
-    private static void quickSort(int[] a){
+    public static void quickSort(int[] a){
         quickSort(a, 0, a.length-1);
     }
 
-    private static void quickSort(int[] arr, int left, int right) {
+    public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
+            System.out.println("Mache quicksort");
             int mid = partition (arr, left, right);
             quickSort(arr, left, mid -1);
             quickSort(arr, mid , right);
         }
     }
 
-    private static int partition (int[] arr, int left, int right) {
+    public static int partition (int[] arr, int left, int right) {
         int pivot = arr[(left + right) / 2];
         while (left <= right) {
             while (arr[left] < pivot) { left++; }
