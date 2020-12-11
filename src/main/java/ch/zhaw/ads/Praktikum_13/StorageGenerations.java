@@ -1,10 +1,12 @@
 package ch.zhaw.ads.Praktikum_13;
 
-import java.util.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 
 
-public class Storage {
+public class StorageGenerations {
 	public static StringBuffer log = new StringBuffer();
 	private static List<Collectable> root;
 	private static List<Collectable> heap;
