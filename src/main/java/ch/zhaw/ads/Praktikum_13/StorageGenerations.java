@@ -2,6 +2,7 @@ package ch.zhaw.ads.Praktikum_13;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import java.util.List;
 public class StorageGenerations {
 	public static StringBuffer log = new StringBuffer();
 	private static List<Collectable> root;
-	private static List<Collectable> heap;
+	private static List<Collectable> youngGenerationHeap;
+	private static List<Collectable> oldGenerationHeap;
+	private static int countCollector = 0;
 
 	static {
 		clear();
@@ -17,7 +20,8 @@ public class StorageGenerations {
    
 	public static void clear() {
 		root = new LinkedList<Collectable>();
-		heap = new LinkedList<Collectable>();
+		youngGenerationHeap = new LinkedList<Collectable>();
+		oldGenerationHeap = new LinkedList<Collectable>();
 	}
    
 	/* add  root object */
@@ -32,8 +36,8 @@ public class StorageGenerations {
 			// create an object and call constructor
 			Constructor cst = Class.forName("ch.zhaw.ads.Praktikum_13." + cls).getConstructor(new Class[] { arg.getClass()});
 			obj = (Collectable) cst.newInstance(new Object[] {arg});
-			// add object to heap
-			heap.add(obj);
+			// add object to young generation heap
+			youngGenerationHeap.add(obj);
 			log.append("New: " + obj.toString() + "\n");
 		} catch (Exception ex) {
 			log.append("error creating object " + cls + "\n");
@@ -41,14 +45,25 @@ public class StorageGenerations {
 		return (Collectable) obj;
 	}
 
-	/* remove object from heap */
-	public static void delete(Collectable obj) {
-		if (heap.remove(obj)) {
-			log.append("Delete: " + obj.toString() + "\n");
+	/* remove object from young generation heap */
+	public static void deleteYoungGenerationHeap(Collectable obj) {
+		if (youngGenerationHeap.remove(obj)) {
+			log.append("Delete young heap: " + obj.toString() + "\n");
 		} else {
 			log.append(
 					"error trying to delete not existing object " + obj.toString()
 					+ "\n");
+		}
+	}
+
+	/* remove object from old generation heap */
+	public static void deleteOldGenerationHeap(Collectable obj) {
+		if (oldGenerationHeap.remove(obj)) {
+			log.append("Delete old heap: " + obj.toString() + "\n");
+		} else {
+			log.append(
+					"error trying to delete not existing object " + obj.toString()
+							+ "\n");
 		}
 	}
  
@@ -57,9 +72,14 @@ public class StorageGenerations {
 		return new LinkedList<Collectable>(root);
 	}
 
-	/* get heap */
-	public static Iterable<Collectable> getHeap() {
-		return new LinkedList<Collectable>(heap);
+	/* get young generation heap */
+	public static Iterable<Collectable> getYoungGenerationHeap() {
+		return new LinkedList<Collectable>(youngGenerationHeap);
+	}
+
+	/* get old generation heap */
+	public static Iterable<Collectable> getOldGenerationHeap() {
+		return new LinkedList<Collectable>(oldGenerationHeap);
 	}
    
 	/* get references to collectables of an object */
@@ -84,7 +104,7 @@ public class StorageGenerations {
 		for (Object o: itr) {
 			log.append(" " + o.toString());
 		}
-		log.append("\n\n");
+		log.append("\n");
 	}
 
 	public static String getLog() {
@@ -107,30 +127,49 @@ public class StorageGenerations {
 		}
 	}
 
-	private static void sweep() {
-		// for all N in heap
-		//   if mark_bit(N) == unmarked
-		//		free(N)
-		//	else
-		//      mark_bit(N) = unmarked
-		for (Collectable cObject : getHeap()) {
+	private static void sweepOldGeneration() {
+		for (Collectable cObject : getOldGenerationHeap()) {
 			if (!cObject.isMarked()) {
-				delete(cObject);
+				deleteOldGenerationHeap(cObject);
 			} else {
 				cObject.setMark(false);
 			}
 		}
 	}
 
+	// Alle in young generations in den old generations verschieben
+	private static void sweepYoungGeneration() {
+		Iterator<Collectable> iteratorYoungGenerationHeap = youngGenerationHeap.iterator();
+		while (iteratorYoungGenerationHeap.hasNext()) {
+			Collectable collectable = iteratorYoungGenerationHeap.next();
+			if (!collectable.isMarked()) {
+				deleteYoungGenerationHeap(collectable);
+			} else {
+				collectable.setMark(false);
+				oldGenerationHeap.add(collectable);
+				iteratorYoungGenerationHeap.remove();
+			}
+		}
+	}
+
 	public static void gc() {
-		log.append("Collector start\n");
-		// for all N in root
-		//      mark (N)
-		//  sweep()
 		for (Collectable collectable : getRoot()) {
 			mark(collectable);
 		}
-		sweep();
+
+		// Gerade
+		if (countCollector % 2 == 0) {
+			log.append("Collector start young generation only\n");
+
+			sweepYoungGeneration();
+		} else {
+			// ungerade
+			log.append("Collector start young and old generation\n");
+
+			sweepYoungGeneration();
+			sweepOldGeneration();
+		}
+		countCollector++;
 
 		log.append("Collector end\n");
 	}

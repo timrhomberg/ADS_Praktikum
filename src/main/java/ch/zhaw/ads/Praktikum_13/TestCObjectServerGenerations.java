@@ -2,6 +2,9 @@ package ch.zhaw.ads.Praktikum_13;
 
 import ch.zhaw.ads.CommandExecutor;
 
+import java.util.Collections;
+import java.util.Iterator;
+
 public class TestCObjectServerGenerations implements CommandExecutor {
 
    private static CObject new_CObject(Object s) {
@@ -32,17 +35,31 @@ public class TestCObjectServerGenerations implements CommandExecutor {
      a.next = b; b.next = c; b.down = a; c.down = d;
      e.next = f; f.next = g; g.next = e;
      StorageGenerations.dump("\nRoots:", StorageGenerations.getRoot());
-     StorageGenerations.dump("Heap 1:", StorageGenerations.getHeap());
+     StorageGenerations.dump("Young Heap 1:", StorageGenerations.getYoungGenerationHeap());
+     StorageGenerations.dump("Old Heap 1:", StorageGenerations.getOldGenerationHeap());
+     StorageGenerations.dump("", Collections.emptyList());
+
      StorageGenerations.gc();
-     StorageGenerations.dump("Heap 2:", StorageGenerations.getHeap());
+     StorageGenerations.dump("Young Heap 2:", StorageGenerations.getYoungGenerationHeap());
+     StorageGenerations.dump("Old Heap 2:", StorageGenerations.getOldGenerationHeap());
+     StorageGenerations.dump("", Collections.emptyList());
+
      b.next = f;
      StorageGenerations.gc();
-     StorageGenerations.dump("Heap 3:", StorageGenerations.getHeap());
+     StorageGenerations.dump("Young Heap 3:", StorageGenerations.getYoungGenerationHeap());
+     StorageGenerations.dump("Old Heap 3:", StorageGenerations.getOldGenerationHeap());
+     StorageGenerations.dump("", Collections.emptyList());
+
      f.next = null;
      StorageGenerations.gc();
-     StorageGenerations.dump("Heap 4:", StorageGenerations.getHeap());
+     StorageGenerations.dump("Young Heap 4:", StorageGenerations.getYoungGenerationHeap());
+     StorageGenerations.dump("Old Heap 4:", StorageGenerations.getOldGenerationHeap());
+     StorageGenerations.dump("", Collections.emptyList());
+
      StorageGenerations.gc();
-     StorageGenerations.dump("Heap 5:", StorageGenerations.getHeap());
+     StorageGenerations.dump("Young Heap 5:", StorageGenerations.getYoungGenerationHeap());
+     StorageGenerations.dump("Old Heap 5:", StorageGenerations.getOldGenerationHeap());
+     StorageGenerations.dump("", Collections.emptyList());
   }
 
 }
